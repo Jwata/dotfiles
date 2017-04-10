@@ -1,0 +1,38 @@
+[user]
+	name = Jwata
+  email = watanabe0621@gmail.com
+[color]
+	ui = auto
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	grep = auto
+[help]
+	autocorrect = 1
+[alias]
+	st = status
+	ad  = add
+	sts = stash
+	stsp= stash pop
+	br = branch
+	co = checkout
+	df = diff
+	dfc= diff --cached
+	rh = reset HEAD
+	lg = log -p
+	gr = grep
+[core]
+	editor = nvim
+	pager = nkf -w | LESSCHARSET=utf-8 less
+[branch]
+	#autosetuprebase = always
+[push]
+	default = current
+[http]
+	sslVerify = false
+[merge]
+        tool = intellij
+[mergetool "intellij"]
+   cmd = /Applications/IntelliJ\\ IDEA.app/Contents/MacOS/idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")
+   trustExitCode = true

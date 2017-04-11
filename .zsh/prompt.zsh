@@ -1,3 +1,4 @@
+setopt prompt_subst
 autoload -Uz vcs_info
 precmd() {
     psvar=()

@@ -1,2 +1,4 @@
 alias spring='nocorrect spring'
-setopt correct_all
+alias rspec='nocorrect rspec'
+
+setopt correct

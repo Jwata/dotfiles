@@ -103,13 +103,21 @@ highlight JpSpace cterm=underline ctermfg=Cyan "guifg=7
 let g:denite_enable_start_insert=1
 let g:denite_source_file_mru_long_limit = 1000
 let g:denite_data_directory = '/Volumes/RamDisk/.unite'
-call denite#custom#var('file_rec', 'command',
-  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-" call denite#custom#source('file_rec', 'matchers', ['macher_cpsm'])
-call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
-call denite#custom#var('grep', 'command', ['ag'])
+" call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+"      \ [ '.git/', 'vendor/', '*.min.*', 'images/', 'fonts/'])
+call denite#custom#var('file_rec', 'command', ['rg', '--files',
+  \ '--glob', '!vendor/',
+  \ '--glob', '!spec/cassettes/'])
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading',
+  \ '--glob', '!vendor/',
+  \ '--glob', '!spec/cassettes/'])
 call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'default_opts', ['--follow', '--nocolor', '--nogroup'])
+call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
+
 nnoremap [denite] <Nop>
 nmap     <C-u> [denite]
 noremap [denite]<C-f> :Denite file_rec<CR>
@@ -182,11 +190,11 @@ inoremap <C-N> <Down>
 inoremap <C-P> <Up>
 inoremap <C-F> <Right>
 
-inoremap "" ""<Left>
-inoremap '' ''<Left>
-inoremap ( ()<Left>
-inoremap { {}<Left>
-inoremap [ []<Left>
+"inoremap "" ""<Left>
+"inoremap '' ''<Left>
+"inoremap ( ()<Left>
+"inoremap { {}<Left>
+"inoremap [ []<Left>
 inoremap <> <><Left>
 
 nnoremap [TABCMD] <nop>

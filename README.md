@@ -15,4 +15,3 @@ pyenv install 3.5.1
 pyenv global 3.5.1
 pip install neovim
 ```
-

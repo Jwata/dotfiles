@@ -9,3 +9,6 @@ for config_file ($HOME/.zsh/*.zsh); do
 done
 
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"

@@ -1,7 +1,7 @@
 begin
+  Bundler.require if defined? Bundler
+  AwesomePrint.pry! if defined? AwesomePrint
   require 'looksee'
-  require 'awesome_print'
-  AwesomePrint.pry!
 rescue Exception => e
   puts e.message
 end

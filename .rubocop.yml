@@ -27,3 +27,9 @@ RSpec/MultipleExpectations:
 
 RSpec/MessageSpies:
   Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/NamedSubject:
+  Enabled: false

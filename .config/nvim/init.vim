@@ -16,6 +16,7 @@ call dein#add('itchyny/lightline.vim')
 call dein#add('kana/vim-submode')
 call dein#add('fmoralesc/vim-vitamins')
 call dein#add('tpope/vim-fugitive')
+call dein#add('jiangmiao/auto-pairs')
 
 " Hakell
 call dein#add('eagletmt/ghcmod-vim')
@@ -122,7 +123,9 @@ nnoremap [denite] <Nop>
 nmap     <C-u> [denite]
 noremap [denite]<C-f> :Denite file_rec<CR>
 noremap [denite]<C-u> :Denite buffer file_mru<CR>
-noremap [denite]<C-g> :DeniteCursorWord -auto_preview grep<CR>
+noremap [denite]<C-g><C-g> :DeniteCursorWord grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
+noremap [denite]<C-g> :Denite grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
+noremap [denite]<C-r> :Denite -resume -buffer-name=search-buffer-denite<CR>
 call denite#custom#map(
       \ 'insert',
       \ '<C-j>',
@@ -142,12 +145,14 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_mode_map = { 'mode': 'active',
       \ 'active_filetypes': [],
-      \ 'passive_filetypes': ['scss'] }
+      \ 'passive_filetypes': ['scss', 'html'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+
 noremap <C-S><C-S> :SyntasticCheck<CR>
 " }}}
 " {{{ lightline
@@ -176,7 +181,7 @@ colorscheme vitamins
 " {{{ coffeescript / javascript
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
-autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
+" autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
 " }}}
 
 " Other key bindings and scripts

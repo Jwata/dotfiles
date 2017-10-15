@@ -1,3 +1,6 @@
+let g:python_host_prog='/usr/local/miniconda3/envs/neovim-py2/bin/python'
+let g:python3_host_prog='/usr/local/miniconda3/envs/neovim-py3/bin/python'
+
 " {{{ Dein
 if &compatible
   set nocompatible
@@ -8,7 +11,6 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-let g:python3_host_prog = '/usr/local/var/pyenv/shims/python'
 " call dein#add('Shougo/deoplete.nvim')
 " call deoplete#enable()
 call dein#add('vim-syntastic/syntastic')

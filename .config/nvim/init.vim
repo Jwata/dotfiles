@@ -8,7 +8,8 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-let g:python3_host_prog = '/usr/local/var/pyenv/shims/python'
+let g:python_host_prog = '/usr/local/var/pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/usr/local/var/pyenv/versions/neovim3/bin/python'
 " call dein#add('Shougo/deoplete.nvim')
 " call deoplete#enable()
 call dein#add('vim-syntastic/syntastic')
@@ -17,6 +18,7 @@ call dein#add('kana/vim-submode')
 call dein#add('fmoralesc/vim-vitamins')
 call dein#add('tpope/vim-fugitive')
 call dein#add('jiangmiao/auto-pairs')
+call dein#add('miyakogi/livemark.vim')
 
 " Hakell
 call dein#add('eagletmt/ghcmod-vim')
@@ -182,6 +184,9 @@ colorscheme vitamins
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
+" }}}
+" {{{
+let g:livemark_browser = 'macosx'
 " }}}
 
 " Other key bindings and scripts

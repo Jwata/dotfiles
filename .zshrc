@@ -12,9 +12,4 @@ done
 
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-#export NVM_DIR="$HOME/.nvm"
-#. "/usr/local/opt/nvm/nvm.sh"
-export NVM_LAZY_LOAD=true
-antigen bundle lukechilds/zsh-nvm
-
 export PATH="/usr/local/opt/qt/bin:$PATH"

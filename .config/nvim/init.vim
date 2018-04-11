@@ -1,5 +1,5 @@
-let g:python_host_prog='/usr/local/miniconda3/envs/neovim-py2/bin/python'
-let g:python3_host_prog='/usr/local/miniconda3/envs/neovim-py3/bin/python'
+let g:python_host_prog='/Users/junji/miniconda3/envs/neovim-py2/bin/python'
+let g:python3_host_prog='/Users/junji/miniconda3/envs/neovim-py3/bin/python'
 
 " {{{ Dein
 if &compatible
@@ -29,6 +29,13 @@ call dein#add('kchmck/vim-coffee-script')
 
 " Ruby
 call dein#add('thoughtbot/vim-rspec')
+
+" Python
+call dein#add('Vimjas/vim-python-pep8-indent')
+" call dein#add('davidhalter/jedi-vim')
+" call dein#add('cjrh/vim-conda')
+
+call dein#add('amadeus/vim-mjml')
 
 call dein#end()
 filetype plugin indent on
@@ -110,11 +117,10 @@ let g:denite_data_directory = '/Volumes/RamDisk/.unite'
 " call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 "      \ [ '.git/', 'vendor/', '*.min.*', 'images/', 'fonts/'])
 call denite#custom#var('file_rec', 'command', ['rg', '--files',
-  \ '--glob', '!vendor/',
   \ '--glob', '!spec/cassettes/'])
 call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading',
-  \ '--glob', '!vendor/',
+call denite#custom#var('grep', 'default_opts', [
+  \ '--vimgrep', '--no-heading',
   \ '--glob', '!spec/cassettes/'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
@@ -127,8 +133,9 @@ nmap     <C-u> [denite]
 noremap [denite]<C-f> :Denite file_rec<CR>
 noremap [denite]<C-u> :Denite buffer file_mru<CR>
 noremap [denite]<C-g><C-g> :DeniteCursorWord grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
+noremap [denite]<C-v> :DeniteCursorWord noignore_grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
 noremap [denite]<C-g> :Denite grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
-noremap [denite]<C-r> :Denite -resume -buffer-name=search-buffer-denite<CR>
+noremap [denite]<C-r> :Denite -resume<CR>
 call denite#custom#map(
       \ 'insert',
       \ '<C-j>',
@@ -148,13 +155,15 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_mode_map = { 'mode': 'active',
       \ 'active_filetypes': [],
-      \ 'passive_filetypes': ['scss', 'html'] }
+      \ 'passive_filetypes': ['scss', 'html', 'python'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+let g:syntastic_eruby_ruby_quiet_messages =
+    \ {'regex': 'possibly useless use of a variable in void context' }
 
 noremap <C-S><C-S> :SyntasticCheck<CR>
 " }}}
@@ -186,8 +195,11 @@ au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
 " }}}
-" {{{
+" {{{ Live Markdown
 let g:livemark_browser = 'macosx'
+" }}}
+" {{{ Jedi
+let g:jedi#completions_command = "<C-Enter>"
 " }}}
 
 " Other key bindings and scripts

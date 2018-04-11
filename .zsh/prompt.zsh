@@ -6,7 +6,7 @@ precmd() {
     psvar[1]=$vcs_info_msg_0_
 }
 
-PROMPT=$'%2F%n@%m%f %3F%~%f%1% '
+PROMPT=$'%3F%~%f\n%2F%n@%m%f %1% '
 PROMPT2="%_%% "
 SPROMPT="%r is correct? [n,y,a,e]: "
 RPROMPT="%1(v|%F{green}%1v%f|)"

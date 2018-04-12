@@ -1,4 +1,4 @@
-source $HOME/.zsh/antigen.zsh
+source $HOME/.zsh/antigen/antigen.zsh
 
 setopt nobeep
 setopt auto_cd

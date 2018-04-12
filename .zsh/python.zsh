@@ -11,6 +11,6 @@
 #     pyenv "$@"
 #   }
 # fi
-export PYTHONSTARTUP=~/.pythonrc.py
-. /usr/local/miniconda3/etc/profile.d/conda.sh
-export PATH=/usr/local/miniconda3/bin:"$PATH"
+#
+eval "$( command pyenv init - )"
+eval "$(pyenv virtualenv-init -)"

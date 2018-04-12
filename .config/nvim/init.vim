@@ -1,5 +1,5 @@
-let g:python_host_prog='/Users/junji/miniconda3/envs/neovim-py2/bin/python'
-let g:python3_host_prog='/Users/junji/miniconda3/envs/neovim-py3/bin/python'
+let g:python_host_prog='/Users/junji/.pyenv/versions/neovim-py2/bin/python'
+let g:python3_host_prog='/Users/junji/.pyenv/versions/neovim-py3/bin/python'
 
 " {{{ Dein
 if &compatible

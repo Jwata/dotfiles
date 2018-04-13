@@ -1,16 +1,11 @@
 # export PYTHONSTARTUP=~/.pythonrc.py
 # export PATH="$HOME"/miniconda3/bin:$PATH
-# 
-# if [ `command -v conda` ];then
-# elif [ `command -v pyenv` ];then
-#   export PYENV_ROOT=/usr/local/var/pyenv
-#   export PATH="$PYENV_ROOT/bin:$PATH"
-#   pyenv() {
-#     eval "$( command pyenv init - )"
-#     eval "$(pyenv virtualenv-init -)"
-#     pyenv "$@"
-#   }
-# fi
-#
-eval "$( command pyenv init - )"
-eval "$(pyenv virtualenv-init -)"
+
+# pyenvの設定
+export PYENV_ROOT="${HOME}/.pyenv"
+if [ -d "${PYENV_ROOT}"  ]; then
+  export PATH=${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}
+  eval "$(pyenv init -)"
+fi
+# pyenv-virtualenvの設定
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi

@@ -1,2 +1,2 @@
 export PATH="$HOME/.ndenv/bin:$PATH"
-eval "$(ndenv init -)"
+eval "$(ndenv init - zsh)"

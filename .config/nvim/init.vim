@@ -31,7 +31,9 @@ call dein#add('kchmck/vim-coffee-script')
 call dein#add('thoughtbot/vim-rspec')
 
 " Python
-call dein#add('Vimjas/vim-python-pep8-indent')
+call dein#add('google/yapf', {'rtp': 'plugins/vim' })
+" call dein#add('Vimjas/vim-python-pep8-indent')
+" call dein#add('tell-k/vim-autopep8')
 " call dein#add('davidhalter/jedi-vim')
 " call dein#add('cjrh/vim-conda')
 
@@ -155,7 +157,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_mode_map = { 'mode': 'active',
       \ 'active_filetypes': [],
-      \ 'passive_filetypes': ['scss', 'html', 'python'] }
+      \ 'passive_filetypes': ['scss', 'html'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -201,6 +203,11 @@ let g:livemark_browser = 'macosx'
 " {{{ Jedi
 let g:jedi#completions_command = "<C-Enter>"
 " }}}
+""" {{{ yapf
+command! -range=% YAPF <line1>,<line2>call yapf#YAPF()
+map <C-Y> :call yapf#YAPF()<cr>
+imap <C-Y> <c-o>:call yapf#YAPF()<cr>
+""" }}}
 
 " Other key bindings and scripts
 " {{{ basic

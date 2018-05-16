@@ -111,6 +111,27 @@ highlight SpecialKey cterm=NONE ctermfg=Cyan "guifg=7
 highlight JpSpace cterm=underline ctermfg=Cyan "guifg=7
 " }}}
 
+" Terminal emulator {{{
+autocmd BufWinEnter,WinEnter term://* startinsert
+set shell=/usr/local/bin/zsh
+nnoremap <C-t><C-t> :vsp term:///usr/local/bin/zsh<CR>
+tnoremap <ESC> <C-\><C-n>
+tnoremap <C-q> <C-\><C-n>:q<CR>
+tnoremap <C-w><C-w> <C-\><C-n><C-w> p
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+" }}}
+
 " Plugin and settings
 " {{{ denite.vim
 let g:denite_enable_start_insert=1
@@ -203,11 +224,11 @@ let g:livemark_browser = 'macosx'
 " {{{ Jedi
 let g:jedi#completions_command = "<C-Enter>"
 " }}}
-""" {{{ yapf
+" {{{ yapf
 command! -range=% YAPF <line1>,<line2>call yapf#YAPF()
 map <C-Y> :call yapf#YAPF()<cr>
 imap <C-Y> <c-o>:call yapf#YAPF()<cr>
-""" }}}
+" }}}
 
 " Other key bindings and scripts
 " {{{ basic

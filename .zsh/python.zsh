@@ -9,5 +9,6 @@ fi
 # pyenv-virtualenvの設定
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
-# export PATH="$HOME"/miniconda3/bin:$PATH
-export PATH="/Users/junji/.pyenv/versions/miniconda3-latest/bin:$PATH"
+# enable conda
+# . ${HOME}/.pyenv/versions/miniconda3-latest/etc/profile.d/conda.sh
+# export PATH="/Users/junji/.pyenv/versions/miniconda3-latest/bin:$PATH"

@@ -117,7 +117,6 @@ set shell=/usr/local/bin/zsh
 nnoremap <C-t><C-t> :vsp term:///usr/local/bin/zsh<CR>
 tnoremap <ESC> <C-\><C-n>
 tnoremap <C-q> <C-\><C-n>:q<CR>
-tnoremap <C-w><C-w> <C-\><C-n><C-w> p
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k

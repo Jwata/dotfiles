@@ -13,22 +13,21 @@ call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 " call dein#add('Shougo/deoplete.nvim')
 " call deoplete#enable()
+call dein#add('kana/vim-submode')
 call dein#add('vim-syntastic/syntastic')
 call dein#add('itchyny/lightline.vim')
-call dein#add('kana/vim-submode')
 call dein#add('fmoralesc/vim-vitamins')
 call dein#add('tpope/vim-fugitive')
 call dein#add('jiangmiao/auto-pairs')
-call dein#add('miyakogi/livemark.vim')
 
 " Hakell
-call dein#add('eagletmt/ghcmod-vim')
+" call dein#add('eagletmt/ghcmod-vim')
 
 " Javascript / alterJS
 call dein#add('kchmck/vim-coffee-script')
 
 " Ruby
-call dein#add('thoughtbot/vim-rspec')
+" call dein#add('thoughtbot/vim-rspec')
 
 " Python
 call dein#add('google/yapf', {'rtp': 'plugins/vim' })
@@ -37,7 +36,7 @@ call dein#add('google/yapf', {'rtp': 'plugins/vim' })
 " call dein#add('davidhalter/jedi-vim')
 " call dein#add('cjrh/vim-conda')
 
-call dein#add('amadeus/vim-mjml')
+" call dein#add('amadeus/vim-mjml')
 
 call dein#end()
 filetype plugin indent on
@@ -177,7 +176,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_mode_map = { 'mode': 'active',
       \ 'active_filetypes': [],
-      \ 'passive_filetypes': ['scss', 'html'] }
+      \ 'passive_filetypes': ['scss', 'html', 'sql'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1

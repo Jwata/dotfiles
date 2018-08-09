@@ -11,13 +11,12 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-" call dein#add('Shougo/deoplete.nvim')
+ call dein#add('Shougo/deoplete.nvim')
 " call deoplete#enable()
 call dein#add('kana/vim-submode')
-call dein#add('vim-syntastic/syntastic')
+call dein#add('w0rp/ale')
 call dein#add('itchyny/lightline.vim')
 call dein#add('fmoralesc/vim-vitamins')
-call dein#add('tpope/vim-fugitive')
 call dein#add('jiangmiao/auto-pairs')
 
 " Hakell
@@ -30,13 +29,7 @@ call dein#add('kchmck/vim-coffee-script')
 " call dein#add('thoughtbot/vim-rspec')
 
 " Python
-call dein#add('google/yapf', {'rtp': 'plugins/vim' })
-" call dein#add('Vimjas/vim-python-pep8-indent')
-" call dein#add('tell-k/vim-autopep8')
-" call dein#add('davidhalter/jedi-vim')
-" call dein#add('cjrh/vim-conda')
-
-" call dein#add('amadeus/vim-mjml')
+" call dein#add('google/yapf', {'rtp': 'plugins/vim' })
 
 call dein#end()
 filetype plugin indent on
@@ -170,23 +163,8 @@ call denite#custom#map(
       \ 'noremap'
       \)
 " }}}
-" {{{ syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_mode_map = { 'mode': 'active',
-      \ 'active_filetypes': [],
-      \ 'passive_filetypes': ['scss', 'html', 'sql'] }
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-let g:syntastic_eruby_ruby_quiet_messages =
-    \ {'regex': 'possibly useless use of a variable in void context' }
-
-noremap <C-S><C-S> :SyntasticCheck<CR>
+" {{{ deoplete
+let g:deoplete#enable_at_startup = 1
 " }}}
 " {{{ lightline
 let g:lightline = {
@@ -204,6 +182,13 @@ call submode#map('winsize', 'n', '', '<', '<C-w><')
 call submode#map('winsize', 'n', '', '+', '<C-w>-')
 call submode#map('winsize', 'n', '', '-', '<C-w>+')
 " }}}
+" {{{ ale linter
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_open = 1
+let g:ale_linters = {
+\   'python': ['flake8', 'pylint'],
+\}
+" }}}
 " {{{ ghcmod-vim
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 " }}}
@@ -218,9 +203,6 @@ autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " }}}
 " {{{ Live Markdown
 let g:livemark_browser = 'macosx'
-" }}}
-" {{{ Jedi
-let g:jedi#completions_command = "<C-Enter>"
 " }}}
 " {{{ yapf
 command! -range=% YAPF <line1>,<line2>call yapf#YAPF()

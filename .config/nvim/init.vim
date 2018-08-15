@@ -11,7 +11,7 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
- call dein#add('Shougo/deoplete.nvim')
+call dein#add('Shougo/deoplete.nvim')
 " call deoplete#enable()
 call dein#add('kana/vim-submode')
 call dein#add('w0rp/ale')
@@ -23,13 +23,13 @@ call dein#add('jiangmiao/auto-pairs')
 " call dein#add('eagletmt/ghcmod-vim')
 
 " Javascript / alterJS
-call dein#add('kchmck/vim-coffee-script')
+" call dein#add('kchmck/vim-coffee-script')
 
 " Ruby
 " call dein#add('thoughtbot/vim-rspec')
 
 " Python
-" call dein#add('google/yapf', {'rtp': 'plugins/vim' })
+call dein#add('Vimjas/vim-python-pep8-indent')
 
 call dein#end()
 filetype plugin indent on
@@ -102,7 +102,6 @@ hi PmenuThumb ctermfg=3
 highlight SpecialKey cterm=NONE ctermfg=Cyan "guifg=7
 highlight JpSpace cterm=underline ctermfg=Cyan "guifg=7
 " }}}
-
 " Terminal emulator {{{
 autocmd BufWinEnter,WinEnter term://* startinsert
 set shell=/usr/local/bin/zsh
@@ -183,11 +182,20 @@ call submode#map('winsize', 'n', '', '+', '<C-w>-')
 call submode#map('winsize', 'n', '', '-', '<C-w>+')
 " }}}
 " {{{ ale linter
-" let g:ale_lint_on_text_changed = 'never'
+" let g:al_lint_on_text_changed = 'never'
 " let g:ale_lint_on_open = 1
 let g:ale_linters = {
 \   'python': ['flake8', 'pylint'],
+\   'yaml': ['yamllint'],
+\   'dockerfile': ['hadolint'],
 \}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['yapf', 'isort', 'autopep8'],
+\}
+autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
+" same shortcut with IntelliJ
+nnoremap <C-A-l> :ALEFix<CR>
 " }}}
 " {{{ ghcmod-vim
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
@@ -200,14 +208,6 @@ colorscheme vitamins
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
-" }}}
-" {{{ Live Markdown
-let g:livemark_browser = 'macosx'
-" }}}
-" {{{ yapf
-command! -range=% YAPF <line1>,<line2>call yapf#YAPF()
-map <C-Y> :call yapf#YAPF()<cr>
-imap <C-Y> <c-o>:call yapf#YAPF()<cr>
 " }}}
 
 " Other key bindings and scripts

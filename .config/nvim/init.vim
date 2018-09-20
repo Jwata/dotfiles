@@ -31,6 +31,9 @@ call dein#add('jiangmiao/auto-pairs')
 " Python
 call dein#add('Vimjas/vim-python-pep8-indent')
 
+" Golang
+call dein#add('fatih/vim-go')
+
 call dein#end()
 filetype plugin indent on
 syntax enable
@@ -126,7 +129,6 @@ nnoremap <A-l> <C-w>l
 " {{{ denite.vim
 let g:denite_enable_start_insert=1
 let g:denite_source_file_mru_long_limit = 1000
-let g:denite_data_directory = '/Volumes/RamDisk/.unite'
 " call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 "      \ [ '.git/', 'vendor/', '*.min.*', 'images/', 'fonts/'])
 call denite#custom#var('file_rec', 'command', ['rg', '--files',
@@ -139,6 +141,8 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
+call denite#custom#source('buffer', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
+call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 
 
 nnoremap [denite] <Nop>
@@ -188,10 +192,12 @@ let g:ale_linters = {
 \   'python': ['flake8', 'pylint'],
 \   'yaml': ['yamllint'],
 \   'dockerfile': ['hadolint'],
+\   'go': ['gometalinter'],
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['yapf', 'isort', 'autopep8'],
+\   'go': ['gofmt', 'goimports']
 \}
 autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ

@@ -1,6 +1,6 @@
 [user]
 	name = Jwata
-  email = watanabe0621@gmail.com
+	email = watanabe0621@gmail.com
 [color]
 	ui = auto
 	status = auto
@@ -25,6 +25,7 @@
 [core]
 	editor = nvim
 	pager = nkf -w | LESSCHARSET=utf-8 less
+	excludesfile = /Users/junji-watanabe/.gitignore_global
 [branch]
 	#autosetuprebase = always
 [push]
@@ -36,3 +37,11 @@
 # [mergetool "intellij"]
 #    cmd = /Applications/IntelliJ\\ IDEA.app/Contents/MacOS/idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")
 #    trustExitCode = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/junji-watanabe/.stCommitMsg

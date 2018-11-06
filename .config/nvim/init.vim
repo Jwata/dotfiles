@@ -12,7 +12,7 @@ call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Shougo/deoplete.nvim')
-" call deoplete#enable()
+call deoplete#enable()
 call dein#add('kana/vim-submode')
 call dein#add('w0rp/ale')
 call dein#add('itchyny/lightline.vim')
@@ -33,6 +33,10 @@ call dein#add('Vimjas/vim-python-pep8-indent')
 
 " Golang
 call dein#add('fatih/vim-go')
+
+" Rust
+call dein#add('rust-lang/rust.vim')
+call dein#add('autozimu/LanguageClient-neovim', {'rev': 'binary-*-x86_64-unknown-linux-musl'})
 
 call dein#end()
 filetype plugin indent on
@@ -186,18 +190,21 @@ call submode#map('winsize', 'n', '', '+', '<C-w>-')
 call submode#map('winsize', 'n', '', '-', '<C-w>+')
 " }}}
 " {{{ ale linter
-" let g:al_lint_on_text_changed = 'never'
-" let g:ale_lint_on_open = 1
+let g:al_lint_on_text_changed = 'never'
+let g:ale_lint_on_open = 1
 let g:ale_linters = {
 \   'python': ['flake8', 'pylint'],
 \   'yaml': ['yamllint'],
 \   'dockerfile': ['hadolint'],
 \   'go': ['gometalinter'],
+\   'rust': ['rustfmt', 'rls'],
 \}
+let g:ale_go_gometalinter_options = '--fast'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['yapf', 'isort', 'autopep8'],
-\   'go': ['gofmt', 'goimports']
+\   'go': ['gofmt', 'goimports'],
+\   'rust': ['rustfmt']
 \}
 autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ
@@ -214,6 +221,18 @@ colorscheme vitamins
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
+" }}}
+" {{{ LanguageClient_serverCommands
+" Required for operations modifying multiple buffers like rename.
+set hidden
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ }
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " }}}
 
 " Other key bindings and scripts

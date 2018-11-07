@@ -38,6 +38,9 @@ call dein#add('fatih/vim-go')
 call dein#add('rust-lang/rust.vim')
 call dein#add('autozimu/LanguageClient-neovim', {'rev': 'binary-*-x86_64-unknown-linux-musl'})
 
+" Floobits
+call dein#add('floobits/floobits-neovim')
+
 call dein#end()
 filetype plugin indent on
 syntax enable
@@ -58,6 +61,7 @@ set ambiwidth=double
 set wildmenu
 set noswapfile
 set expandtab
+set mouse=a
 set ts=2 sw=2 sts=2
 let g:current_tab=2
 " }}}

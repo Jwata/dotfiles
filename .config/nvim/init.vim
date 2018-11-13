@@ -16,8 +16,12 @@ call deoplete#enable()
 call dein#add('kana/vim-submode')
 call dein#add('w0rp/ale')
 call dein#add('itchyny/lightline.vim')
-call dein#add('fmoralesc/vim-vitamins')
 call dein#add('jiangmiao/auto-pairs')
+
+" Color schema
+" call dein#add('fmoralesc/vim-vitamins')
+call dein#add('morhetz/gruvbox')
+call dein#add('shinchu/lightline-gruvbox.vim')
 
 " Hakell
 " call dein#add('eagletmt/ghcmod-vim')
@@ -99,16 +103,16 @@ set noincsearch
 set hlsearch
 " }}}
 " {{{ colors / highlight
-" highligh
-highlight Folded ctermbg=LightGrey ctermfg=Black gui=bold term=standout guibg=Grey30 guifg=Grey80
-highlight FoldColumn ctermbg=LightGrey ctermfg=Black gui=bold term=standout guibg=Grey guifg=DarkBlue
-set cursorline
-highlight CursorLine ctermbg=black
-" highlight PopUp Menu
-hi Pmenu ctermbg=0
-hi PmenuSel ctermbg=4
-hi PmenuSbar ctermbg=2
-hi PmenuThumb ctermfg=3
+""  highligh
+" highlight Folded ctermbg=LightGrey ctermfg=Black gui=bold term=standout guibg=Grey30 guifg=Grey80
+" highlight FoldColumn ctermbg=LightGrey ctermfg=Black gui=bold term=standout guibg=Grey guifg=DarkBlue
+" set cursorline
+" highlight CursorLine ctermbg=black
+"" highlight PopUp Menu
+" hi Pmenu ctermbg=0
+" hi PmenuSel ctermbg=4
+" hi PmenuSbar ctermbg=2
+" hi PmenuThumb ctermfg=3
 "" listchars
 highlight SpecialKey cterm=NONE ctermfg=Cyan "guifg=7
 highlight JpSpace cterm=underline ctermfg=Cyan "guifg=7
@@ -179,7 +183,7 @@ let g:deoplete#enable_at_startup = 1
 " }}}
 " {{{ lightline
 let g:lightline = {
-\   'colorscheme': 'wombat',
+\   'colorscheme': 'gruvbox',
 \ }
 set laststatus=2
 " }}}
@@ -204,6 +208,7 @@ let g:ale_linters = {
 \   'rust': ['rustfmt', 'rls'],
 \}
 let g:ale_go_gometalinter_options = '--fast'
+let g:ale_go_gofmt_options = '-s'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['yapf', 'isort', 'autopep8'],
@@ -218,8 +223,9 @@ nnoremap <C-A-l> :ALEFix<CR>
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 " }}}
 " {{{ color scheme
+colorscheme gruvbox
 set termguicolors
-colorscheme vitamins
+set background=dark
 " }}}
 " {{{ coffeescript / javascript
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee

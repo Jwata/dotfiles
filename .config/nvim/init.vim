@@ -37,6 +37,7 @@ call dein#add('Vimjas/vim-python-pep8-indent')
 
 " Golang
 call dein#add('fatih/vim-go')
+call dein#add('zchee/deoplete-go', {'build': 'make'})
 
 " Rust
 call dein#add('rust-lang/rust.vim')
@@ -180,6 +181,9 @@ call denite#custom#map(
 " }}}
 " {{{ deoplete
 let g:deoplete#enable_at_startup = 1
+set completeopt+=noselect
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 " }}}
 " {{{ lightline
 let g:lightline = {

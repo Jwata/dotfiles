@@ -1,4 +1,7 @@
-source $HOME/.zsh/antigen/antigen.zsh
+# zmodload zsh/zprof
+
+# TODO: use https://github.com/zplug/zplug
+# source $HOME/.zsh/antigen/antigen.zsh
 
 setopt nobeep
 setopt auto_cd
@@ -14,3 +17,5 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export PATH="/usr/local/opt/qt/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+# zprof

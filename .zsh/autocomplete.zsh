@@ -1,5 +1,10 @@
-autoload -U compinit
-compinit
+autoload -Uz compinit
+if [ $(date +'%j') != $(stat -f '%Sa' -t '%j' ~/.zcompdump) ]; then
+	compinit
+else
+	compinit -C
+fi
+
 setopt auto_list
 setopt auto_menu
 zstyle ':completion:*:default' menu select=1

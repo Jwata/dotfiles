@@ -37,11 +37,14 @@ call dein#add('Vimjas/vim-python-pep8-indent')
 
 " Golang
 call dein#add('fatih/vim-go')
-call dein#add('zchee/deoplete-go', {'build': 'make'})
+" call dein#add('zchee/deoplete-go', {'build': 'make'})
 
 " Rust
-call dein#add('rust-lang/rust.vim')
-call dein#add('autozimu/LanguageClient-neovim', {'rev': 'binary-*-x86_64-unknown-linux-musl'})
+" call dein#add('rust-lang/rust.vim')
+" call dein#add('autozimu/LanguageClient-neovim', {'rev': 'binary-*-x86_64-unknown-linux-musl'})
+
+" Cucumber
+" call dein#add('tpope/vim-cucumber')
 
 " Floobits
 call dein#add('floobits/floobits-neovim')
@@ -107,7 +110,7 @@ set hlsearch
 ""  highligh
 " highlight Folded ctermbg=LightGrey ctermfg=Black gui=bold term=standout guibg=Grey30 guifg=Grey80
 " highlight FoldColumn ctermbg=LightGrey ctermfg=Black gui=bold term=standout guibg=Grey guifg=DarkBlue
-" set cursorline
+set cursorline
 " highlight CursorLine ctermbg=black
 "" highlight PopUp Menu
 " hi Pmenu ctermbg=0
@@ -163,7 +166,7 @@ nmap     <C-u> [denite]
 noremap [denite]<C-f> :Denite file_rec<CR>
 noremap [denite]<C-u> :Denite buffer file_mru<CR>
 noremap [denite]<C-g><C-g> :DeniteCursorWord grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
-noremap [denite]<C-v> :DeniteCursorWord noignore_grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
+noremap [denite]<C-v><C-v> :DeniteCursorWord vendor_grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
 noremap [denite]<C-g> :Denite grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
 noremap [denite]<C-r> :Denite -resume<CR>
 call denite#custom#map(
@@ -210,14 +213,16 @@ let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'go': ['gometalinter'],
 \   'rust': ['rustfmt', 'rls'],
+\   'cpp': ['clang', 'clangcheck', 'clangd', 'clangtidy', 'cppcheck']
 \}
 let g:ale_go_gometalinter_options = '--fast'
 let g:ale_go_gofmt_options = '-s'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['yapf', 'isort', 'autopep8'],
-\   'go': ['gofmt', 'goimports'],
-\   'rust': ['rustfmt']
+\   'go': ["gofmt", "goimports"],
+\   'rust': ['rustfmt'],
+\   'cpp': ['clang-format']
 \}
 autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ
@@ -238,15 +243,15 @@ autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " }}}
 " {{{ LanguageClient_serverCommands
 " Required for operations modifying multiple buffers like rename.
-set hidden
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ }
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" set hidden
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+"     \ }
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" " Or map each action separately
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " }}}
 
 " Other key bindings and scripts
@@ -301,3 +306,7 @@ set showcmd
 set clipboard&
 set clipboard^=unnamedplus
 " }}}
+
+" TOOD: move to subdirectory
+" mpc
+au BufNewFile,BufRead *.mpc setf python

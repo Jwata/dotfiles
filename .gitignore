@@ -1,3 +1,13 @@
-.config/nvim/.netrwhist
-.pry_history
 .zsh-history
+.pry_history
+.ipython/profile_default/history.sqlite
+
+# credentials
+.config/gcloud
+.config/nvim/*.netrwhist
+.config/nvim/init *.vim
+.config/karabiner
+.config/direnv
+.config/configstore
+.config/heroku
+.config/pandas_gbq

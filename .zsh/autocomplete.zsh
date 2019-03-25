@@ -1,3 +1,5 @@
+fpath=($HOME/.zsh/completions $fpath)
+
 autoload -Uz compinit
 if [ $(date +'%j') != $(stat -f '%Sa' -t '%j' ~/.zcompdump) ]; then
 	compinit

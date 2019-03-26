@@ -1,7 +1,7 @@
 fpath=($HOME/.zsh/completions $fpath)
 
 autoload -Uz compinit
-if [ $(date +'%j') != $(stat -f '%Sa' -t '%j' ~/.zcompdump) ]; then
+if [[ ! -a ~/.zcompdump || $(date +'%j') != $(stat -f '%Sa' -t '%j' ~/.zcompdump) ]]; then
 	compinit
 else
 	compinit -C
@@ -21,5 +21,3 @@ bindkey "^N" history-beginning-search-forward-end
 bindkey "^U" backward-kill-line
 bindkey "[D" backward-word
 bindkey "[C" forward-word
-
-__git_files() { _files }

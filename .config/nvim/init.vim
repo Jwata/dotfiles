@@ -17,6 +17,7 @@ call dein#add('kana/vim-submode')
 call dein#add('w0rp/ale')
 call dein#add('itchyny/lightline.vim')
 call dein#add('jiangmiao/auto-pairs')
+call dein#add('tpope/vim-fugitive')
 
 " Color schema
 " call dein#add('fmoralesc/vim-vitamins')
@@ -36,12 +37,17 @@ call dein#add('shinchu/lightline-gruvbox.vim')
 call dein#add('Vimjas/vim-python-pep8-indent')
 
 " Golang
-call dein#add('fatih/vim-go')
+call dein#add('fatih/vim-go', {'build': "GoInstallBinaries"})
+call dein#add('sebdah/vim-delve')
 " call dein#add('zchee/deoplete-go', {'build': 'make'})
 
 " Rust
 " call dein#add('rust-lang/rust.vim')
 " call dein#add('autozimu/LanguageClient-neovim', {'rev': 'binary-*-x86_64-unknown-linux-musl'})
+
+" Type Script
+call dein#add('HerringtonDarkholme/yats.vim')
+call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
 
 " Cucumber
 " call dein#add('tpope/vim-cucumber')
@@ -213,7 +219,8 @@ let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'go': ['gometalinter'],
 \   'rust': ['rustfmt', 'rls'],
-\   'cpp': ['clang', 'clangcheck', 'clangd', 'clangtidy', 'cppcheck']
+\   'cpp': ['clang', 'clangcheck', 'clangd', 'clangtidy', 'cppcheck'],
+\   'js': ['eslint']
 \}
 let g:ale_go_gometalinter_options = '--fast'
 let g:ale_go_gofmt_options = '-s'
@@ -222,7 +229,8 @@ let g:ale_fixers = {
 \   'python': ['yapf', 'isort', 'autopep8'],
 \   'go': ["gofmt", "goimports"],
 \   'rust': ['rustfmt'],
-\   'cpp': ['clang-format']
+\   'cpp': ['clang-format'],
+\   'js': ['eslint']
 \}
 autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ
@@ -252,6 +260,21 @@ autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 " nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" }}}
+
+" Project setting
+" {{{ Load .vimrc.local if exists
+augroup vimrc-local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
 " }}}
 
 " Other key bindings and scripts

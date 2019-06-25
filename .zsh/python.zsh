@@ -3,7 +3,7 @@
 # pyenvの設定
 export PYENV_ROOT="${HOME}/.pyenv"
 if [ -d "${PYENV_ROOT}"  ]; then
-  export PATH=${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}
+  # export PATH=${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}
   eval "$(pyenv init -)"
 fi
 # pyenv-virtualenvの設定

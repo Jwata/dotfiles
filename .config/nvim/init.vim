@@ -12,7 +12,6 @@ call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Shougo/deoplete.nvim')
-call deoplete#enable()
 call dein#add('kana/vim-submode')
 call dein#add('w0rp/ale')
 call dein#add('itchyny/lightline.vim')
@@ -23,6 +22,10 @@ call dein#add('tpope/vim-fugitive')
 " call dein#add('fmoralesc/vim-vitamins')
 call dein#add('morhetz/gruvbox')
 call dein#add('shinchu/lightline-gruvbox.vim')
+
+" Language server client
+call dein#add('prabirshrestha/async.vim')
+call dein#add('prabirshrestha/vim-lsp')
 
 " Hakell
 " call dein#add('eagletmt/ghcmod-vim')
@@ -151,9 +154,29 @@ nnoremap <A-l> <C-w>l
 " {{{ denite.vim
 let g:denite_enable_start_insert=1
 let g:denite_source_file_mru_long_limit = 1000
-" call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-"      \ [ '.git/', 'vendor/', '*.min.*', 'images/', 'fonts/'])
-call denite#custom#var('file_rec', 'command', ['rg', '--files',
+
+call denite#custom#option('default', {
+    \ 'split': 'floating',
+    \ })
+
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+     \ [ '.git/', 'vendor/', '*.min.*', 'images/', 'fonts/'])
+call denite#custom#var('file/rec', 'command', ['rg', '--files',
   \ '--glob', '!spec/cassettes/'])
 call denite#custom#var('grep', 'command', ['rg'])
 call denite#custom#var('grep', 'default_opts', [
@@ -169,11 +192,14 @@ call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 
 nnoremap [denite] <Nop>
 nmap     <C-u> [denite]
-noremap [denite]<C-f> :Denite file_rec<CR>
+noremap [denite]<C-f> :Denite file/rec<CR>
 noremap [denite]<C-u> :Denite buffer file_mru<CR>
-noremap [denite]<C-g><C-g> :DeniteCursorWord grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
-noremap [denite]<C-v><C-v> :DeniteCursorWord vendor_grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
-noremap [denite]<C-g> :Denite grep -auto-preview -vertical-preview -buffer-name=search-buffer-denite<CR>
+"noremap [denite]<C-g><C-g> :DeniteCursorWord grep -auto-action=preview -vertical-preview -buffer-name=search-buffer-denite<CR>
+"noremap [denite]<C-v><C-v> :DeniteCursorWord vendor_grep -auto-action=preview -vertical-preview -buffer-name=search-buffer-denite<CR>
+"noremap [denite]<C-g> :Denite grep -auto-action=preview -vertical-preview -buffer-name=search-buffer-denite<CR>
+noremap [denite]<C-g><C-g> :DeniteCursorWord grep -auto-action=preview -vertical-preview<CR>
+noremap [denite]<C-v><C-v> :DeniteCursorWord vendor_grep -auto-action=preview -vertical-preview<CR>
+noremap [denite]<C-g> :Denite grep -auto-action=preview -vertical-preview<CR>
 noremap [denite]<C-r> :Denite -resume<CR>
 call denite#custom#map(
       \ 'insert',
@@ -235,6 +261,7 @@ let g:ale_fixers = {
 autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ
 nnoremap <C-A-l> :ALEFix<CR>
+nnoremap <silent> gd :ALEGoToDefinition<CR>
 " }}}
 " {{{ ghcmod-vim
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
@@ -261,6 +288,26 @@ autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 " nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " }}}
+" {{{ vim-lsp
+let g:lsp_log_verbose=1
+let g:lsp_log_file=expand('~/.cache/tmp/vim-lsp.log')
+" }}}
+" {{{ python-language-server
+let s:pyls_path = fnamemodify(g:python3_host_prog, ':h') . '/'. 'pyls'
+if (executable('pyls'))
+    au User lsp_setup call lsp#register_server({
+  \ 'name': 'pyls',
+  \ 'cmd': {server_info->[expand(s:pyls_path)]},
+  \ 'whitelist': ['python']
+  \ })
+endif
+" }}}
+" {{{ nvim-typescript
+let g:nvim_typescript#diagnostics_enable = 0
+autocmd BufWrite *.ts,*.tsx TSGetDiagnostics
+" }}}
+" Goto Definition
+autocmd filetype python nnoremap <silent> gd :LspDefinition<CR>
 
 " Project setting
 " {{{ Load .vimrc.local if exists

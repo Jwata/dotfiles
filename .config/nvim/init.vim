@@ -11,7 +11,7 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('Shougo/deoplete.nvim')
+" call dein#add('Shougo/deoplete.nvim')
 call dein#add('kana/vim-submode')
 call dein#add('w0rp/ale')
 call dein#add('itchyny/lightline.vim')
@@ -26,6 +26,8 @@ call dein#add('shinchu/lightline-gruvbox.vim')
 " Language server client
 call dein#add('prabirshrestha/async.vim')
 call dein#add('prabirshrestha/vim-lsp')
+call dein#add('prabirshrestha/asyncomplete.vim')
+call dein#add('prabirshrestha/asyncomplete-lsp.vim')
 
 " Hakell
 " call dein#add('eagletmt/ghcmod-vim')
@@ -51,6 +53,9 @@ call dein#add('sebdah/vim-delve')
 " Type Script
 call dein#add('HerringtonDarkholme/yats.vim')
 call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
+
+" Julia
+call dein#add('JuliaEditorSupport/julia-vim')
 
 " Cucumber
 " call dein#add('tpope/vim-cucumber')
@@ -157,6 +162,7 @@ let g:denite_source_file_mru_long_limit = 1000
 
 call denite#custom#option('default', {
     \ 'split': 'floating',
+    \ 'start_filter': 1,
     \ })
 
 autocmd FileType denite call s:denite_my_settings()
@@ -215,10 +221,10 @@ call denite#custom#map(
       \)
 " }}}
 " {{{ deoplete
-let g:deoplete#enable_at_startup = 1
-set completeopt+=noselect
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" let g:deoplete#enable_at_startup = 1
+" set completeopt+=noselect
+" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 " }}}
 " {{{ lightline
 let g:lightline = {
@@ -237,10 +243,10 @@ call submode#map('winsize', 'n', '', '+', '<C-w>-')
 call submode#map('winsize', 'n', '', '-', '<C-w>+')
 " }}}
 " {{{ ale linter
-let g:al_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_open = 1
 let g:ale_linters = {
-\   'python': ['flake8', 'pylint'],
+\   'python': ['flake8', 'autopep8'],
 \   'yaml': ['yamllint'],
 \   'dockerfile': ['hadolint'],
 \   'go': ['gometalinter'],
@@ -252,7 +258,7 @@ let g:ale_go_gometalinter_options = '--fast'
 let g:ale_go_gofmt_options = '-s'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf', 'isort', 'autopep8'],
+\   'python': ['yapf', 'isort', 'autopep8', 'black'],
 \   'go': ["gofmt", "goimports"],
 \   'rust': ['rustfmt'],
 \   'cpp': ['clang-format'],
@@ -262,6 +268,17 @@ autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ
 nnoremap <C-A-l> :ALEFix<CR>
 nnoremap <silent> gd :ALEGoToDefinition<CR>
+
+let g:ale_python_flake8_executable = g:python3_host_prog
+let g:ale_python_flake8_options = '-m flake8'
+let g:ale_python_autopep8_executable = g:python3_host_prog
+let g:ale_python_autopep8_options = '-m autopep8'
+let g:ale_python_isort_executable = g:python3_host_prog
+let g:ale_python_isort_options = '-m isort'
+let g:ale_python_black_executable = g:python3_host_prog
+let g:ale_python_black_options = '-m black'
+let g:ale_python_yapf_executable = g:python3_host_prog
+let g:ale_python_yapf_options = '-m yapf'
 " }}}
 " {{{ ghcmod-vim
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
@@ -291,9 +308,11 @@ autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
 " {{{ vim-lsp
 let g:lsp_log_verbose=1
 let g:lsp_log_file=expand('~/.cache/tmp/vim-lsp.log')
+let g:asyncomplete_log_file = expand('~/.cache/tmp/asyncomplete.log')
 " }}}
 " {{{ python-language-server
 let s:pyls_path = fnamemodify(g:python3_host_prog, ':h') . '/'. 'pyls'
+let g:lsp_diagnostics_enabled = 0
 if (executable('pyls'))
     au User lsp_setup call lsp#register_server({
   \ 'name': 'pyls',
@@ -301,13 +320,13 @@ if (executable('pyls'))
   \ 'whitelist': ['python']
   \ })
 endif
+autocmd filetype python nnoremap <silent> gd :LspDefinition<CR>
+" autocmd filetype python nnoremap <silent> <C-A-l> :LspDocumentFormat<CR>
 " }}}
 " {{{ nvim-typescript
 let g:nvim_typescript#diagnostics_enable = 0
 autocmd BufWrite *.ts,*.tsx TSGetDiagnostics
 " }}}
-" Goto Definition
-autocmd filetype python nnoremap <silent> gd :LspDefinition<CR>
 
 " Project setting
 " {{{ Load .vimrc.local if exists

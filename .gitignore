@@ -2,6 +2,9 @@
 .pry_history
 .ipython/profile_default/history.sqlite
 
+# work settings
+.zsh/work.zsh
+
 # credentials
 .config/gcloud
 .config/nvim/*.netrwhist

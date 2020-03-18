@@ -3,15 +3,26 @@ let g:python3_host_prog='/Users/junji/.pyenv/versions/neovim-py3/bin/python'
 
 " {{{ Plug
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'junegunn/vim-plug'
+
+" color schema/statusline
+Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
+Plug 'shinchu/lightline-gruvbox.vim'
+
+" Programming help
+Plug 'jiangmiao/auto-pairs'
+Plug 'tmhedberg/SimpylFold'
+Plug 'dense-analysis/ale'
+
+" fzf
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 " }}}
 filetype plugin indent on
 syntax on
-
-if dein#check_install()
-  call dein#install()
-endif
-" }}}
 
 " Basics
 " global setting {{{
@@ -97,91 +108,31 @@ nnoremap <A-l> <C-w>l
 " }}}
 
 " Plugin and settings
-" {{{ denite.vim
-let g:denite_enable_start_insert=1
-let g:denite_source_file_mru_long_limit = 1000
-
-call denite#custom#option('default', {
-    \ 'split': 'floating',
-    \ 'start_filter': 1,
-    \ })
-
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
-endfunction
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-     \ [ '.git/', 'vendor/', '*.min.*', 'images/', 'fonts/'])
-call denite#custom#var('file/rec', 'command', ['rg', '--files',
-  \ '--glob', '!spec/cassettes/'])
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts', [
-  \ '--vimgrep', '--no-heading',
-  \ '--glob', '!spec/cassettes/'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#source('buffer', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
-call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
-
-
-nnoremap [denite] <Nop>
-nmap     <C-u> [denite]
-noremap [denite]<C-f> :Denite file/rec<CR>
-noremap [denite]<C-u> :Denite buffer file_mru<CR>
-"noremap [denite]<C-g><C-g> :DeniteCursorWord grep -auto-action=preview -vertical-preview -buffer-name=search-buffer-denite<CR>
-"noremap [denite]<C-v><C-v> :DeniteCursorWord vendor_grep -auto-action=preview -vertical-preview -buffer-name=search-buffer-denite<CR>
-"noremap [denite]<C-g> :Denite grep -auto-action=preview -vertical-preview -buffer-name=search-buffer-denite<CR>
-noremap [denite]<C-g><C-g> :DeniteCursorWord grep -auto-action=preview -vertical-preview<CR>
-noremap [denite]<C-v><C-v> :DeniteCursorWord vendor_grep -auto-action=preview -vertical-preview<CR>
-noremap [denite]<C-g> :Denite grep -auto-action=preview -vertical-preview<CR>
-noremap [denite]<C-r> :Denite -resume<CR>
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-j>',
-      \ '<denite:move_to_next_line>',
-      \ 'noremap'
-      \)
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-k>',
-      \ '<denite:move_to_previous_line>',
-      \ 'noremap'
-      \)
-" }}}
-" {{{ deoplete
-" let g:deoplete#enable_at_startup = 1
-" set completeopt+=noselect
-" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" {{{ fzf
+nnoremap [fzf] <Nop>
+nmap     <C-u> [fzf]
+noremap [fzf]<C-u> :History<CR>
+noremap [fzf]<C-f> :FZF<CR>
+"command! -bang -nargs=* Rg
+"  \ call fzf#vim#grep(
+"  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+"  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+"  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+"  \   <bang>0)
+noremap [fzf]<C-g> :Rg<CR>
+command! -bang -nargs=* RgCursorWord
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(expand('<cword>')), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+noremap [fzf]<C-g><C-g> :RgCursorWord<CR>
 " }}}
 " {{{ lightline
 let g:lightline = {
 \   'colorscheme': 'gruvbox',
 \ }
 set laststatus=2
-" }}}
-" {{{ vim-submode
-call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
-call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
-call submode#map('winsize', 'n', '', '>', '<C-w>>')
-call submode#map('winsize', 'n', '', '<', '<C-w><')
-call submode#map('winsize', 'n', '', '+', '<C-w>-')
-call submode#map('winsize', 'n', '', '-', '<C-w>+')
 " }}}
 " {{{ ale linter
 let g:ale_lint_on_text_changed = 'never'
@@ -221,52 +172,10 @@ let g:ale_python_black_options = '-m black'
 let g:ale_python_yapf_executable = g:python3_host_prog
 let g:ale_python_yapf_options = '-m yapf'
 " }}}
-" {{{ ghcmod-vim
-autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-" }}}
 " {{{ color scheme
 colorscheme gruvbox
 set termguicolors
 set background=dark
-" }}}
-" {{{ coffeescript / javascript
-au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
-autocmd FileType coffee setlocal sw=2 sts=2 ts=2 et
-" autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
-" }}}
-" {{{ LanguageClient_serverCommands
-" Required for operations modifying multiple buffers like rename.
-" set hidden
-" let g:LanguageClient_serverCommands = {
-"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-"     \ }
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" " Or map each action separately
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-" }}}
-" {{{ vim-lsp
-let g:lsp_log_verbose=1
-let g:lsp_log_file=expand('~/.cache/tmp/vim-lsp.log')
-let g:asyncomplete_log_file = expand('~/.cache/tmp/asyncomplete.log')
-" }}}
-" {{{ python-language-server
-let s:pyls_path = fnamemodify(g:python3_host_prog, ':h') . '/'. 'pyls'
-let g:lsp_diagnostics_enabled = 0
-if (executable('pyls'))
-    au User lsp_setup call lsp#register_server({
-  \ 'name': 'pyls',
-  \ 'cmd': {server_info->[expand(s:pyls_path)]},
-  \ 'whitelist': ['python']
-  \ })
-endif
-autocmd filetype python nnoremap <silent> gd :LspDefinition<CR>
-" autocmd filetype python nnoremap <silent> <C-A-l> :LspDocumentFormat<CR>
-" }}}
-" {{{ nvim-typescript
-let g:nvim_typescript#diagnostics_enable = 0
-autocmd BufWrite *.ts,*.tsx TSGetDiagnostics
 " }}}
 
 " Project setting
@@ -316,6 +225,7 @@ nnoremap <silent> [TABCMD]w :<c-u>tabclose<cr>
 nnoremap <silent> [TABCMD]o :<c-u>tabonly<cr>
 nnoremap <silent> [TABCMD]s :<c-u>tabs<cr>
 
+noremap <C-u><C-q> :wqa!<CR>
 noremap <C-V><C-P> :vsp<CR>
 noremap <C-E> :e ./<CR>
 " }}}
@@ -336,7 +246,3 @@ set showcmd
 set clipboard&
 set clipboard^=unnamedplus
 " }}}
-
-" TOOD: move to subdirectory
-" mpc
-au BufNewFile,BufRead *.mpc setf python

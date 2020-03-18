@@ -19,3 +19,5 @@ export PATH="/usr/local/opt/qt/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 # zprof
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -14,3 +14,5 @@
 .config/configstore
 .config/heroku
 .config/pandas_gbq
+
+.netrwhist

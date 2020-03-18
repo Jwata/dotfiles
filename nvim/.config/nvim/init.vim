@@ -1,71 +1,12 @@
 let g:python_host_prog='/Users/junji/.pyenv/versions/neovim-py2/bin/python'
 let g:python3_host_prog='/Users/junji/.pyenv/versions/neovim-py3/bin/python'
 
-" {{{ Dein
-if &compatible
-  set nocompatible
-endif
-set runtimepath+=/Users/junji/.cache/dein/repos/github.com/Shougo/dein.vim
-call dein#begin('/Users/junji/.cache/dein')
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/denite.nvim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-" call dein#add('Shougo/deoplete.nvim')
-call dein#add('kana/vim-submode')
-call dein#add('w0rp/ale')
-call dein#add('itchyny/lightline.vim')
-call dein#add('jiangmiao/auto-pairs')
-call dein#add('tpope/vim-fugitive')
-
-" Color schema
-" call dein#add('fmoralesc/vim-vitamins')
-call dein#add('morhetz/gruvbox')
-call dein#add('shinchu/lightline-gruvbox.vim')
-
-" Language server client
-call dein#add('prabirshrestha/async.vim')
-call dein#add('prabirshrestha/vim-lsp')
-call dein#add('prabirshrestha/asyncomplete.vim')
-call dein#add('prabirshrestha/asyncomplete-lsp.vim')
-
-" Hakell
-" call dein#add('eagletmt/ghcmod-vim')
-
-" Javascript / alterJS
-" call dein#add('kchmck/vim-coffee-script')
-
-" Ruby
-" call dein#add('thoughtbot/vim-rspec')
-
-" Python
-call dein#add('Vimjas/vim-python-pep8-indent')
-
-" Golang
-call dein#add('fatih/vim-go', {'build': "GoInstallBinaries"})
-call dein#add('sebdah/vim-delve')
-" call dein#add('zchee/deoplete-go', {'build': 'make'})
-
-" Rust
-" call dein#add('rust-lang/rust.vim')
-" call dein#add('autozimu/LanguageClient-neovim', {'rev': 'binary-*-x86_64-unknown-linux-musl'})
-
-" Type Script
-call dein#add('HerringtonDarkholme/yats.vim')
-call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
-
-" Julia
-call dein#add('JuliaEditorSupport/julia-vim')
-
-" Cucumber
-" call dein#add('tpope/vim-cucumber')
-
-" Floobits
-call dein#add('floobits/floobits-neovim')
-
-call dein#end()
+" {{{ Plug
+call plug#begin('~/.local/share/nvim/plugged')
+call plug#end()
+" }}}
 filetype plugin indent on
-syntax enable
+syntax on
 
 if dein#check_install()
   call dein#install()

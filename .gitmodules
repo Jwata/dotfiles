@@ -7,3 +7,6 @@
 [submodule ".zsh/antigen"]
 	path = .zsh/antigen
 	url = https://github.com/zsh-users/antigen
+[submodule "nvim/vim-plug"]
+	path = nvim/vim-plug
+	url = https://github.com/junegunn/vim-plug

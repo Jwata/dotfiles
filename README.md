@@ -1,5 +1,8 @@
-# Neovim
-## Dependencies
+## Setup
+Use `stow` to setup dotfiles.
+
+## Neovim
+### Dependencies
 ```
 brew tap neovim/neovim
 brew install neovim
@@ -9,7 +12,7 @@ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh >
 sh /tmp/installer.sh ~/.cache/dein
 ```
 
-## Python3 interface
+### Python3 interface
 ```
 pyenv install 3.5.1
 pyenv global 3.5.1

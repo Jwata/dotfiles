@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/junji-watanabe/Development/seq2seq-keyphrase/test'
+let g:netrw_dirhist_2='/Users/junji/Development/digime-js-sdk-example'
+let g:netrw_dirhist_3='/Users/junji/Development'
+let g:netrw_dirhist_4='/Users/junji/Development/digime-react-native-demo'
+let g:netrw_dirhist_5='/Users/junji/Videos/i212'
+let g:netrw_dirhist_6='/Users/junji/Videos/i212/2019_1463_203_rec_201911090920'

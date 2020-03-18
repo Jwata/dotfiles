@@ -10,3 +10,6 @@
 [submodule "nvim/vim-plug"]
 	path = nvim/vim-plug
 	url = https://github.com/junegunn/vim-plug
+[submodule "fzf/.fzf"]
+	path = fzf/.fzf
+	url = https://github.com/junegunn/fzf.git

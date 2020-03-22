@@ -1,15 +1,18 @@
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
+# PATH
+export PATH=/usr/local/bin:$PATH
 
 # editor
 export EDITOR='nvim'
 alias vim='nvim' 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# theme
+ZSH_THEME="robbyrussell"
 
-# Path
-export PATH=/usr/local/bin:$PATH
+plugins=(
+  git
+  pyenv
+  fzf
+)
+
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh

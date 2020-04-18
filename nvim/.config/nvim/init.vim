@@ -19,6 +19,19 @@ Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 
+" Work space
+Plug 'thaerkh/vim-workspace'
+
+" Type script
+Plug 'HerringtonDarkholme/yats.vim'
+
+" Language server
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+" Autocompletion 
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 call plug#end()
 " }}}
 filetype plugin indent on
@@ -158,7 +171,7 @@ let g:ale_fixers = {
 \}
 autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ
-nnoremap <C-A-l> :ALEFix<CR>
+" nnoremap <C-A-l> :ALEFix<CR>
 nnoremap <silent> gd :ALEGoToDefinition<CR>
 
 let g:ale_python_flake8_executable = g:python3_host_prog
@@ -176,6 +189,13 @@ let g:ale_python_yapf_options = '-m yapf'
 colorscheme gruvbox
 set termguicolors
 set background=dark
+" }}}
+" {{{ Language Server and Autocompletion
+nnoremap <C-A-l> :LspDocumentFormat<CR>
+" }}}
+" {{{ Work space
+" let g:workspace_autosave_always = 1
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 " }}}
 
 " Project setting

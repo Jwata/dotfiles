@@ -22,6 +22,9 @@ Plug 'junegunn/fzf.vim'
 " Work space
 Plug 'thaerkh/vim-workspace'
 
+" Indententaion
+Plug 'tpope/vim-sleuth'
+
 " Type script
 Plug 'HerringtonDarkholme/yats.vim'
 
@@ -29,9 +32,15 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-" Autocompletion 
+" Plug 'piec/vim-lsp-clangd'
+
+" Autocompletion
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" Git
+Plug 'tpope/vim-fugitive'
+
 call plug#end()
 " }}}
 filetype plugin indent on
@@ -156,7 +165,7 @@ let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'go': ['gometalinter'],
 \   'rust': ['rustfmt', 'rls'],
-\   'cpp': ['clang', 'clangcheck', 'clangd', 'clangtidy', 'cppcheck'],
+\   'cpp': ['clang', 'clangcheck', 'clangd', 'clangtidy'],
 \   'js': ['eslint']
 \}
 let g:ale_go_gometalinter_options = '--fast'
@@ -194,7 +203,7 @@ set background=dark
 nnoremap <C-A-l> :LspDocumentFormat<CR>
 " }}}
 " {{{ Work space
-" let g:workspace_autosave_always = 1
+let g:workspace_autosave_always = 1
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 " }}}
 
@@ -247,7 +256,6 @@ nnoremap <silent> [TABCMD]s :<c-u>tabs<cr>
 
 noremap <C-u><C-q> :wqa!<CR>
 noremap <C-V><C-P> :vsp<CR>
-noremap <C-E> :e ./<CR>
 " }}}
 " {{{ save cursor position when end edit
 if has("autocmd")

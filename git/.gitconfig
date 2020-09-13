@@ -25,6 +25,8 @@
 [core]
 	editor = nvim
 	pager = nkf -w | LESSCHARSET=utf-8 less
+	excludesfile = ~/.gitignore_global
+	whitespace = cr-at-eol
 [branch]
 	#autosetuprebase = always
 [push]

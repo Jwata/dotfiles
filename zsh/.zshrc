@@ -16,7 +16,7 @@ export FZF_DEFAULT_COMMAND='fd'
 plugins=(
   git
   pyenv
-  # fzf
+  fzf
   fd
 )
 

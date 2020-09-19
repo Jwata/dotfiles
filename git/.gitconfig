@@ -24,7 +24,8 @@
 	gr = grep
 [core]
 	editor = nvim
-	pager = nkf -w | LESSCHARSET=utf-8 less
+	# pager = nkf -w | LESSCHARSET=utf-8 less
+	pager = LESSCHARSET=utf-8 less
 	excludesfile = ~/.gitignore_global
 	whitespace = cr-at-eol
 [branch]

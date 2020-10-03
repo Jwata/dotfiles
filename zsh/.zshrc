@@ -10,8 +10,8 @@ export PATH=/usr/local/bin:$PATH
 export PATH=~/depot_tools:$PATH
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
-# editor
 export EDITOR='nvim'
+export SHELL=$(which zsh)
 alias vim='nvim'
 alias vi='nvim'
 

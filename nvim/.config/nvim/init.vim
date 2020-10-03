@@ -111,8 +111,7 @@ highlight JpSpace cterm=underline ctermfg=Cyan "guifg=7
 " }}}
 " Terminal emulator {{{
 autocmd BufWinEnter,WinEnter term://* startinsert
-set shell=/usr/local/bin/zsh
-nnoremap <C-t><C-t> :vsp term:///usr/local/bin/zsh<CR>
+nnoremap <C-t><C-t> :vsp term://$SHELL<CR>
 tnoremap <ESC> <C-\><C-n>
 tnoremap <C-q> <C-\><C-n>:q<CR>
 tnoremap <A-h> <C-\><C-N><C-w>h
@@ -165,23 +164,29 @@ let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'go': ['gometalinter'],
 \   'rust': ['rustfmt', 'rls'],
-\   'cpp': ['clang', 'clangcheck', 'clangd', 'clangtidy'],
+\   'cpp': ['clangcheck', 'clangd', 'clangtidy'],
+\   'cuda': ['nvcc'],
 \   'js': ['eslint']
 \}
 let g:ale_go_gometalinter_options = '--fast'
 let g:ale_go_gofmt_options = '-s'
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf', 'isort', 'autopep8', 'black'],
-\   'go': ["gofmt", "goimports"],
-\   'rust': ['rustfmt'],
-\   'cpp': ['clang-format'],
-\   'js': ['eslint']
-\}
+" Use LspDocumentFormat to fix format.
+" If it still need ale fixers, switch <C-A-l> between LspDocumentFormat and
+" ALEFix accordingly.
+" let g:ale_fixers = {
+" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \   'python': ['yapf', 'isort', 'autopep8', 'black'],
+" \   'go': ["gofmt", "goimports"],
+" \   'rust': ['rustfmt'],
+" \   'cpp': ['clang-format'],
+" \   'cuda': ['clang-format'],
+" \   'js': ['eslint']
+" \}
 autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ
 " nnoremap <C-A-l> :ALEFix<CR>
-nnoremap <silent> gd :ALEGoToDefinition<CR>
+" nnoremap <silent> gd :ALEGoToDefinition<CR>
+nnoremap <silent> gd :LspDefinition<CR>
 
 let g:ale_python_flake8_executable = g:python3_host_prog
 let g:ale_python_flake8_options = '-m flake8'
@@ -200,6 +205,11 @@ set termguicolors
 set background=dark
 " }}}
 " {{{ Language Server and Autocompletion
+let g:lsp_settings = {
+\   'clangd': {
+\     'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cuda']
+\   }
+\ }
 nnoremap <C-A-l> :LspDocumentFormat<CR>
 " }}}
 " {{{ Work space

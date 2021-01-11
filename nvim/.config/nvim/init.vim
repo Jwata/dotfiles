@@ -162,7 +162,6 @@ let g:ale_linters = {
 \   'python': ['flake8', 'autopep8'],
 \   'yaml': ['yamllint'],
 \   'dockerfile': ['hadolint'],
-\   'go': ['gometalinter'],
 \   'rust': ['rustfmt', 'rls'],
 \   'cpp': ['clangcheck', 'clangd', 'clangtidy'],
 \   'cuda': ['nvcc'],
@@ -176,7 +175,6 @@ let g:ale_go_gofmt_options = '-s'
 " let g:ale_fixers = {
 " \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 " \   'python': ['yapf', 'isort', 'autopep8', 'black'],
-" \   'go': ["gofmt", "goimports"],
 " \   'rust': ['rustfmt'],
 " \   'cpp': ['clang-format'],
 " \   'cuda': ['clang-format'],

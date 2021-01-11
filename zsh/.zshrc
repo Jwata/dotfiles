@@ -32,3 +32,9 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# export GOROOT=/usr/local/Cellar/go/1.15.6/libexec
+# export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin

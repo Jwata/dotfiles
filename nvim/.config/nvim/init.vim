@@ -169,17 +169,6 @@ let g:ale_linters = {
 \}
 let g:ale_go_gometalinter_options = '--fast'
 let g:ale_go_gofmt_options = '-s'
-" Use LspDocumentFormat to fix format.
-" If it still need ale fixers, switch <C-A-l> between LspDocumentFormat and
-" ALEFix accordingly.
-" let g:ale_fixers = {
-" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \   'python': ['yapf', 'isort', 'autopep8', 'black'],
-" \   'rust': ['rustfmt'],
-" \   'cpp': ['clang-format'],
-" \   'cuda': ['clang-format'],
-" \   'js': ['eslint']
-" \}
 autocmd! BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
 " same shortcut with IntelliJ
 " nnoremap <C-A-l> :ALEFix<CR>
@@ -209,6 +198,10 @@ let g:lsp_settings = {
 \   }
 \ }
 nnoremap <C-A-l> :LspDocumentFormat<CR>
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
+" for asyncomplete.vim log
+let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
 " }}}
 " {{{ Work space
 let g:workspace_autosave_always = 1

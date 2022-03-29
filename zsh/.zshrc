@@ -15,6 +15,9 @@ if ! zplug check --verbose; then
 fi
 zplug load
 
+# Key binding
+bindkey -e
+
 # PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/depot_tools:$PATH

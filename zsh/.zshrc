@@ -1,3 +1,12 @@
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+export SAVEHIST=10000
+export HISTFILE=~/.zsh_history
+export HISTSIZE=1000
+
+bindkey -e
+
 source ~/.zplug/init.zsh
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "zsh-users/zsh-completions"
@@ -28,6 +37,8 @@ export SHELL=$(which zsh)
 alias vim='nvim'
 alias vi='nvim'
 
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+
 export FZF_DEFAULT_COMMAND='fd'
 
 plugins=(
@@ -45,3 +56,7 @@ plugins=(
 # export GOROOT=/usr/local/Cellar/go/1.15.6/libexec
 # export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+source /etc/profile.d/modules.sh
+
+export PATH=$HOME/depot_tools:$PATH

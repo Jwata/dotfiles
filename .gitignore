@@ -1,2 +1,4 @@
-nvim/.config/nvim/.netrwhist
-karabiner/.config/karabiner/automatic_backups
+/karabiner/.config/karabiner/automatic_backups
+/nvim/.config/nvim/.netrwhist
+/nvim/.vim/asyncomplete.log
+/nvim/.vim/vim-lsp.log

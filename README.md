@@ -1,5 +1,5 @@
 ## Prerequisites
-* git, neovim, zsh, fzf, fd
+* stow, git, neovim, zsh, fzf, fd
 
 ## Setup
 Use `stow` to setup dotfiles.

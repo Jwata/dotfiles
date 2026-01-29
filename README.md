@@ -13,5 +13,3 @@ stow -v -R -t ~ nvim git zsh fzf
 
 ## zsh
 - Do `zplug install`
-
-test edit from my phone
